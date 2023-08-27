@@ -9,7 +9,7 @@ import router from "./router";
 import 'virtual:svg-icons-register'
 
 import "./assets/main.css";
-
+import 'vant/es/dialog/style';
 const app = createApp(App);
 
 app.use(pinia);

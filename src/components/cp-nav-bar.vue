@@ -14,6 +14,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 // 封装需求❓：支持 title rightText 属性，支持 click-right 事件，click-left函数内支持返回上一页或默认首页
 const onClickLeft = () => {
+  
   // 判断历史记录中是否有回退
   if (history.state?.back) {
     router.back()
