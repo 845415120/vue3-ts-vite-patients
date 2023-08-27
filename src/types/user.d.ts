@@ -6,3 +6,5 @@ export type User = {
   mobile: string;
   avatar: string;
 };
+// 短信验证码类型
+export type CodeType = 'login' | 'register'
