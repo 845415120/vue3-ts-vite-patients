@@ -5,6 +5,9 @@ import pinia from "./stores";
 import App from "./App.vue";
 import router from "./router";
 
+// 注册图标
+import 'virtual:svg-icons-register'
+
 import "./assets/main.css";
 
 const app = createApp(App);

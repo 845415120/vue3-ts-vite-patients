@@ -1,23 +1,38 @@
-<script setup lang="ts">
-// 封装需求❓：支持 title rightText 属性，支持 click-right 事件，click-left函数内支持返回上一页或默认首页
-const onClickLeft = () => {
-  //
-};
-const onClickRight = () => {
-  //
-};
-</script>
-
 <template>
   <van-nav-bar
-    left-arrow
-    @click-left="onClickLeft"
-    fixed
-    title="注册"
-    right-text="注册"
-    @click-right="onClickRight"
+      left-arrow
+      @click-left="onClickLeft"
+      fixed
+      :title="title"
+      :right-text="rightText"
+      @click-right="onClickRight"
   ></van-nav-bar>
 </template>
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+const router = useRouter()
+// 封装需求❓：支持 title rightText 属性，支持 click-right 事件，click-left函数内支持返回上一页或默认首页
+const onClickLeft = () => {
+  // 判断历史记录中是否有回退
+  if (history.state?.back) {
+    router.back()
+  } else {
+    router.push('/')
+  }
+};
+// 2. 使用组件时候才能确定的功能：标题，右侧文字，点击右侧文字行为（props传入）
+defineProps<{
+  title?: string
+  rightText?: string
+}>()
+const emit = defineEmits<{
+  (e: 'click-right'): void
+}>()
+const onClickRight = () => {
+  emit('click-right')
+}
+</script>
 
 <style lang="scss" scoped>
 ::v-deep() {
