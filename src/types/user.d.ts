@@ -1,70 +1,64 @@
-// // 用户信息
-// export type User = {
-//   token: string;
-//   id: string;
-//   account: string;
-//   mobile: string;
-//   avatar: string;
-// };
-// // 短信验证码类型
-// export type CodeType = 'login' | 'register'
+// 用户信息
+export type User = {
+  /** token令牌 */
+  token: string;
+  /** 用户ID */
+  id: string;
+  /** 用户名称 */
+  account: string;
+  /** 手机号 */
+  mobile: string;
+  /** 头像 */
+  avatar: string;
+};
+// login登录register注册changeMobile更换手机号forgetPassword找回密码,bindMobile绑定三方登录，区分验证码
+export type CodeType =
+  | "login"
+  | "register"
+  | "changeMobile"
+  | "forgetPassword"
+  | "bindMobile";
 
-// 1. 登录响应数据
-export interface User {
-  /**
-   * 用户名
-   */
-  account?: string
-  /**
-   * 头像
-   */
-  avatar?: string
-  /**
-   * 用户id
-   */
-  id?: string
-  /**
-   * 脱敏手机号，带星号的手机号
-   */
-  mobile?: string
-  /**
-   * refreshToken
-   */
-  refreshToken?: string
-  /**
-   * token
-   */
-  token: string
-}
-
-// 短信验证码类型
-export type CodeType = 'login' | 'register'
-
-// == add 个人信息 ==
-type OmitUser = Omit<User, 'token'>
+// 个人信息
+type OmitUser = Omit<User, "token">;
 export type UserInfo = OmitUser & {
-  likeNumber: number
-  collectionNumber: number
-  score: number
-  couponNumber: number
+  /** 关注 */
+  likeNumber: number;
+  /** 收藏 */
+  collectionNumber: number;
+  /** 积分 */
+  score: number;
+  /** 优惠券 */
+  couponNumber: number;
   orderInfo: {
-    paidNumber: number
-    receivedNumber: number
-    shippedNumber: number
-    finishedNumber: number
-  }
-}
+    /** 待付款 */
+    paidNumber: number;
+    /** 待发货 */
+    receivedNumber: number;
+    /** 待收货 */
+    shippedNumber: number;
+    /** 已完成 */
+    finishedNumber: number;
+  };
+};
 
 // 家庭档案-患者信息
 export type Patient = {
-  id?: string
-  name: string
-  idCard: string
-  defaultFlag: 0 | 1
-  gender: 0 | 1
-  genderValue?: string
-  age?: number
-}
+  /** 患者ID */
+  id?: string;
+  /** 患者名称 */
+  name: string;
+  /** 身份证号 */
+  idCard: string;
+  /** 0不默认  1默认 */
+  defaultFlag: 0 | 1;
+  /** 0 女  1 男 */
+  gender: 0 | 1;
+  /** 性别文字 */
+  genderValue?: string;
+  /** 年龄 */
+  age?: number;
+};
 
 // 家庭档案-患者信息列表
-export type PatientList = Patient[]
+export type PatientList = Patient[];

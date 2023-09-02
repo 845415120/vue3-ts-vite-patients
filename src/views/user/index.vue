@@ -1,42 +1,42 @@
 <script setup lang="ts">
-import { getUserInfo } from '@/api/user';
-import type { UserInfo } from '@/types/user'
-import { ref,onMounted} from 'vue'
-import { showConfirmDialog } from 'vant'
-import { useUserStore } from '@/stores/index'
-import { useRouter } from 'vue-router';
+import { getUserInfo } from "@/services/user";
+import type { UserInfo } from "@/types/user";
+import { ref, onMounted } from "vue";
+import { showConfirmDialog } from "vant";
+import { useUserStore } from "@/stores/index";
+import { useRouter } from "vue-router";
 
-const user = ref<UserInfo>()
+const user = ref<UserInfo>();
 // 获取用户信息
-  onMounted(async () => {
-  const res = await getUserInfo()
-  user.value = res
-})
+onMounted(async () => {
+  const res = await getUserInfo();
+  user.value = res.data;
+});
 const tools = [
-  { label: '我的问诊', path: '/user/consult' },
-  { label: '我的处方', path: '/' },
-  { label: '家庭档案', path: '/user/patient' },
-  { label: '地址管理', path: '/user/address' },
-  { label: '我的评价', path: '/' },
-  { label: '官方客服', path: '/' },
-  { label: '设置', path: '/' }
-]
+  { label: "我的问诊", path: "/user/consult" },
+  { label: "我的处方", path: "/" },
+  { label: "家庭档案", path: "/user/patient" },
+  { label: "地址管理", path: "/user/address" },
+  { label: "我的评价", path: "/" },
+  { label: "官方客服", path: "/" },
+  { label: "设置", path: "/" },
+];
 // 退出登录
 // ... 省略 ...
-const store = useUserStore()
-const router = useRouter()
+const store = useUserStore();
+const router = useRouter();
 const logout = async () => {
   await showConfirmDialog({
-    title: '提示',
-    message: '亲，确定退出问诊吗？'
-  })
-  store.delUser()
-  router.push('/login')
-}
+    title: "提示",
+    message: "亲，确定退出问诊吗？",
+  });
+  store.delUser();
+  router.push("/login");
+};
 </script>
 
 <template>
-<div class="user-page" v-if="user">
+  <div class="user-page" v-if="user">
     <div class="user-page-head">
       <div class="top">
         <van-image round fit="cover" :src="user.avatar" />
@@ -67,7 +67,9 @@ const logout = async () => {
     <div class="user-page-order">
       <div class="head">
         <h3>药品订单</h3>
-        <router-link to="/order">全部订单 <van-icon name="arrow" /></router-link>
+        <router-link to="/order"
+          >全部订单 <van-icon name="arrow"
+        /></router-link>
       </div>
       <van-row>
         <van-col span="6">
@@ -91,13 +93,13 @@ const logout = async () => {
         <van-col span="6">
           <van-badge :content="user.orderInfo.finishedNumber || ''">
             <cp-icon name="user-finished" />
-         </van-badge>
+          </van-badge>
           <p>已完成</p>
         </van-col>
       </van-row>
     </div>
     <!-- 工具栏 -->
-  <div class="user-page-group">
+    <div class="user-page-group">
       <h3>快捷工具</h3>
       <van-cell
         :title="item.label"
@@ -122,7 +124,11 @@ const logout = async () => {
   // 头部
   &-head {
     height: 200px;
-    background: linear-gradient(180deg, rgba(44, 181, 165, 0.46), rgba(44, 181, 165, 0));
+    background: linear-gradient(
+      180deg,
+      rgba(44, 181, 165, 0.46),
+      rgba(44, 181, 165, 0)
+    );
     margin: 0 -15px;
     padding: 0 15px;
     .top {
@@ -217,4 +223,3 @@ const logout = async () => {
   }
 }
 </style>
-
